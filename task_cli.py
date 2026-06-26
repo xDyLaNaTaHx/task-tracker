@@ -85,19 +85,20 @@ def main():
         return
     
     command = sys.argv[1]
-    
-    if command == "add":
-        if len(sys.argv) != 3:
-            print('Usage: python task_cli.py add "Task description"')
-            return
-        description = sys.argv[2]
-        add_task(description)
 
-    elif command == "list":
-        if len(sys.argv) == 2:
-            list_tasks()
-        else:
-            print("Usage: python task_cli.py list")
+    match command:
+        case "add":
+            if len(sys.argv) != 3:
+                print('Usage: python task_cli.py add "Task description"')
+                return
+            description = sys.argv[2]
+            add_task(description)
+
+        case "list":
+            if len(sys.argv) == 2:
+                list_tasks()
+            else:
+                print("Usage: python task_cli.py list")
 
 
 if __name__ == "__main__":

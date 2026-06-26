@@ -1,21 +1,17 @@
 import sys
 import json
 import os
-from datetime import datetime
 
+from src.data_utils import get_current_timestamp
 from src.json_utils import (load_tasks, save_tasks)
+
+TASKS_FILE = "tasks.json"
 
 STATUS_TODO = "todo"
 STATUS_IN_PROGRESS = "in-progress"
 STATUS_DONE = "done"
 
 VALID_STATUSES = [STATUS_TODO, STATUS_IN_PROGRESS, STATUS_DONE]
-
-def get_current_timestamp():
-    """
-    Return current timestamp as an ISO-like string.
-    """
-    return datetime.now().strftime("%Y-%m-%d %H:%M:%S")
 
 def get_next_id(tasks):
     """
@@ -34,7 +30,7 @@ def add_task(description):
         print("Error: Task description cannot be empty.")
         return
     
-    tasks = load_tasks()
+    tasks = load_tasks(TASKS_FILE)
 
     now = get_current_timestamp()
 
@@ -47,7 +43,7 @@ def add_task(description):
     }
 
     tasks.append(new_task)
-    save_tasks(tasks)
+    save_tasks(TASKS_FILE, tasks)
 
     print(f"Task added successfully. ID: {new_task['id']}")
 
@@ -56,7 +52,7 @@ def list_tasks():
     """
     List all tasks, or tasks filtered by status.
     """
-    tasks = load_tasks()
+    tasks = load_tasks(TASKS_FILE)
 
     for task in tasks:
         print(

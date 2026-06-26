@@ -78,10 +78,26 @@ def mark_task(tasks_file, mark_type, task_id):
     tasks = load_tasks(tasks_file)
     for task in tasks:
         this_id = task['id']
-        print(this_id)
         if this_id == task_id:
             task['status'] = mark_type
             print(f"Task updated successfully. ID: {task['id']}; Status: {task['status']}")
+            save_tasks(tasks_file, tasks)
+            return
+        
+    print(f"Error: No task exists for id == {task_id}")
+
+
+def delete_task(tasks_file, task_id):
+    """
+    Delete a task.
+    """
+    tasks = load_tasks(tasks_file)
+
+    for idx, task in enumerate(tasks):
+        this_id = task["id"]
+        if this_id == task_id:
+            tasks.pop(idx)
+            print(f'Task {task_id}: "{task['description']}" successfully')
             save_tasks(tasks_file, tasks)
             return
         

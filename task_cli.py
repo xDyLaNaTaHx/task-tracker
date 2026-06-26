@@ -1,7 +1,7 @@
 import sys
 import json
 import os
-from src.task_utils import (add_task, update_task, list_tasks, mark_task)
+from src.task_utils import (add_task, update_task, list_tasks, mark_task, delete_task)
 
 TASKS_FILE = "tasks.json"
 
@@ -58,6 +58,12 @@ def main():
             task_id = int(sys.argv[3])
             mark_task(TASKS_FILE, mark_type, task_id)
 
+        case "delete":
+            if len(sys.argv) != 3:
+                print('Usage: python task-cli.py delete <task_id>')
+                return
+            task_id = int(sys.argv[2])
+            delete_task(TASKS_FILE, task_id)
         case _:
             print("Error: Unknown argument type.")
 

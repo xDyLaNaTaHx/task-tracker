@@ -54,7 +54,7 @@ def update_task(tasks_file, task_id, description):
 
 def list_tasks(tasks_file):
     """
-    List all tasks, or tasks filtered by status.
+    List all tasks.
     """
     tasks = load_tasks(tasks_file)
 
@@ -67,12 +67,37 @@ def list_tasks(tasks_file):
             f"Updated: {task['updatedAt']}"
         )
 
+def list_tasks_filtered(tasks_file, filter_keyword):
+    """
+    List all tasks filtered by status
+    """
+    tasks = load_tasks(tasks_file)
+
+    if filter_keyword not in VALID_STATUSES:
+        print(f'Error: Status "{filter_keyword}" not supported.')
+        return
+
+    task_found = False
+
+    for task in tasks:
+        if task['status'] == filter_keyword:
+            task_found = True
+            print(
+                f"[{task['id']}] "
+                f"{task['description']} "
+                f"({task['status']}) "
+                f"Created: {task['createdAt']} "
+                f"Updated: {task['updatedAt']}"
+            )
+    if not task_found:
+        print(f'No tasks with status: "{filter_keyword}". Allowed task types: {VALID_STATUSES}.')
+
 def mark_task(tasks_file, mark_type, task_id):
     """
     Update a task's status.
     """
-    if mark_type not in ["todo", "in-progress","done"]:
-        print("Error: Invalid tasks type. Allowed task types: todo, in-progress, done.")
+    if mark_type not in VALID_STATUSES:
+        print(f"Error: Invalid tasks type. Allowed task types: {VALID_STATUSES}.")
         return
     
     tasks = load_tasks(tasks_file)

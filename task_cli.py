@@ -47,6 +47,25 @@ def add_task(description):
 
     print(f"Task added successfully. ID: {new_task['id']}")
 
+def update_task(task_id, description):
+    """
+    Update an existing task description.
+    """
+    if not description.strip():
+        print("Error: Task description cannot be empty.")
+        return
+    
+    tasks = load_tasks(TASKS_FILE)
+    print(tasks)
+    for task in tasks:
+        this_id = task['id']
+        print(this_id)
+        if this_id == task_id:
+            task['description'] = description
+            print(f"Task updated successfully. ID: {task['id']}, Description: {task['description']}")
+            return
+        
+    print(f"Error: No task exists for id == {task_id}")
 
 def list_tasks():
     """
@@ -99,7 +118,17 @@ def main():
                 list_tasks()
             else:
                 print("Usage: python task_cli.py list")
+            
+        case "update":
+            if len(sys.argv) != 4:
+                print('Usage: python task_cli.py update <task_id> "Updated task description"')
+                return
+            task_id = int(sys.argv[2])
+            updated_description = sys.argv[3]
+            update_task(task_id, updated_description)
 
+        case _:
+            print("Error: Unknown argument type.")
 
 if __name__ == "__main__":
     main()

@@ -4,6 +4,8 @@ This application serves to track and manage tasks that are input by the user usi
 ## CLI Sample Inputs
 ```
 python task_cli.py add "Buy groceries"
+
+== IN PROGRESS ==
 python task_cli.py update 1 "Buy groceries and cook dinner"
 
 python task_cli.py mark-in-progress 1

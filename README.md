@@ -13,7 +13,6 @@ python task_cli.py mark done 1
 
 python task_cli.py delete 1
 
-== IN PROGRESS ==
 python task_cli.py list
 python task_cli.py list todo
 python task_cli.py list in-progress

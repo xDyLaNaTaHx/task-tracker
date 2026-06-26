@@ -1,7 +1,7 @@
 import sys
 import json
 import os
-from src.task_utils import (add_task, update_task, list_tasks, mark_task, delete_task)
+from src.task_utils import (add_task, update_task, list_tasks, list_tasks_filtered, mark_task, delete_task)
 
 TASKS_FILE = "tasks.json"
 
@@ -39,6 +39,9 @@ def main():
         case "list":
             if len(sys.argv) == 2:
                 list_tasks(TASKS_FILE)
+            elif len(sys.argv) == 3:
+                filter_key = sys.argv[2]
+                list_tasks_filtered(TASKS_FILE, filter_key)
             else:
                 print("Usage: python task_cli.py list")
             

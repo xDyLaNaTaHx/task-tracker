@@ -41,7 +41,6 @@ def update_task(tasks_file, task_id, description):
         return
     
     tasks = load_tasks(tasks_file)
-    print(tasks)
     for task in tasks:
         this_id = task['id']
         print(this_id)
@@ -67,3 +66,23 @@ def list_tasks(tasks_file):
             f"Created: {task['createdAt']} "
             f"Updated: {task['updatedAt']}"
         )
+
+def mark_task(tasks_file, mark_type, task_id):
+    """
+    Update a task's status.
+    """
+    if mark_type not in ["todo", "in-progress","done"]:
+        print("Error: Invalid tasks type. Allowed task types: todo, in-progress, done.")
+        return
+    
+    tasks = load_tasks(tasks_file)
+    for task in tasks:
+        this_id = task['id']
+        print(this_id)
+        if this_id == task_id:
+            task['status'] = mark_type
+            print(f"Task updated successfully. ID: {task['id']}; Status: {task['status']}")
+            save_tasks(tasks_file, tasks)
+            return
+        
+    print(f"Error: No task exists for id == {task_id}")

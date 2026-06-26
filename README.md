@@ -5,12 +5,13 @@ This application serves to track and manage tasks that are input by the user usi
 ```
 python task_cli.py add "Buy groceries"
 
-== IN PROGRESS ==
 python task_cli.py update 1 "Buy groceries and cook dinner"
 
-python task_cli.py mark-in-progress 1
-python task_cli.py mark-in-done 1
+python task_cli.py mark todo 1
+python task_cli.py mark in-progress 1
+python task_cli.py mark done 1
 
+== IN PROGRESS ==
 python task_cli.py list
 python task_cli.py list todo
 python task_cli.py list in-progress

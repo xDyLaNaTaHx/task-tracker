@@ -1,7 +1,7 @@
 import sys
 import json
 import os
-from src.task_utils import (add_task, update_task, list_tasks)
+from src.task_utils import (add_task, update_task, list_tasks, mark_task)
 
 TASKS_FILE = "tasks.json"
 
@@ -49,6 +49,14 @@ def main():
             task_id = int(sys.argv[2])
             updated_description = sys.argv[3]
             update_task(TASKS_FILE, task_id, updated_description)
+
+        case "mark":
+            if len(sys.argv) != 4:
+                print ('Usage: python task_cli.py mark <todo/in-progress/done> <task_id>')
+                return
+            mark_type = sys.argv[2]
+            task_id = int(sys.argv[3])
+            mark_task(TASKS_FILE, mark_type, task_id)
 
         case _:
             print("Error: Unknown argument type.")
